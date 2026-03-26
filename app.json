@@ -19,7 +19,8 @@
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
       "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "package": "com.dominykasvenckus.localclue"
     },
     "web": {
       "output": "static",
@@ -37,6 +38,17 @@
           "dark": {
             "backgroundColor": "#000000"
           }
+        }
+      ],
+      [
+        "expo-font",
+        {
+          "fonts": [
+            "./assets/fonts/Manrope-Regular.ttf",
+            "./assets/fonts/Manrope-Medium.ttf",
+            "./assets/fonts/Manrope-SemiBold.ttf",
+            "./assets/fonts/Manrope-Bold.ttf"
+          ]
         }
       ]
     ],
