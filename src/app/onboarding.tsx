@@ -1,12 +1,44 @@
-import { Button, IntroductionCard, Typography } from "@/components";
+import { Button, OnboardingCard, Typography } from "@/components";
 import { colors } from "@/constants/colors";
+import { useApplicationStore } from "@/storage/stores";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
+import { ComponentProps } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-export default function GetStarted() {
+const ONBOARDING_CARDS: {
+  iconName: ComponentProps<typeof OnboardingCard>["iconName"];
+  title: string;
+  description: string;
+}[] = [
+  {
+    iconName: "lightbulb-on-outline",
+    title: "STORE HINTS, NOT PASSWORDS",
+    description:
+      "Save only memory clues, never the actual password. Your secrets stay in your head, where they belong.",
+  },
+  {
+    iconName: "cellphone-lock",
+    title: "LOCAL-ONLY STORAGE",
+    description:
+      "Everything is stored on this device and never leaves it. No sync, no servers, no cloud transfer.",
+  },
+  {
+    iconName: "magnify",
+    title: "FIND HINTS QUICKLY",
+    description:
+      "Use search to find the hint you need in seconds, even when you have many saved hints.",
+  },
+];
+
+export default function Onboarding() {
   const insets = useSafeAreaInsets();
+  const setIsOnboarded = useApplicationStore((state) => state.setIsOnboarded);
+
+  const handleGetStartedPress = () => {
+    setIsOnboarded(true);
+  };
 
   return (
     <View style={styles.flex}>
@@ -49,21 +81,9 @@ export default function GetStarted() {
             Save, organize, and manage your password hints in one simple place.
           </Typography>
           <View style={styles.cardsContainer}>
-            <IntroductionCard
-              iconName="lightbulb-on-outline"
-              title="STORE HINTS, NOT PASSWORDS"
-              description="Save only memory clues, never the actual password. Your secrets stay in your head, where they belong."
-            />
-            <IntroductionCard
-              iconName="cellphone-lock"
-              title="LOCAL-ONLY STORAGE"
-              description="Everything is stored on this device and never leaves it. No sync, no servers, no cloud transfer."
-            />
-            <IntroductionCard
-              iconName="magnify"
-              title="FIND HINTS QUICKLY"
-              description="Use search to find the hint you need in seconds, even when you have many saved hints."
-            />
+            {ONBOARDING_CARDS.map((card, index) => (
+              <OnboardingCard key={index} {...card} />
+            ))}
           </View>
         </ScrollView>
         <LinearGradient
@@ -80,7 +100,11 @@ export default function GetStarted() {
           paddingRight: insets.right + 24,
         }}
       >
-        <Button text="Get started" iconName="arrow-right" onPress={() => {}} />
+        <Button
+          text="Get started"
+          iconName="arrow-right"
+          onPress={handleGetStartedPress}
+        />
       </View>
     </View>
   );

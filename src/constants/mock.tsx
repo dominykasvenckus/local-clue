@@ -1,0 +1,92 @@
+export const HINTS = [
+  {
+    id: "1",
+    title: "Netflix",
+    categoryId: "entertainment",
+    hint: "Family movie night + the year we moved apartments.",
+  },
+  {
+    id: "2",
+    title: "Spotify",
+    categoryId: "entertainment",
+    hint: "First concert initials with my lucky number at the end.",
+  },
+  {
+    id: "3",
+    title: "YouTube",
+    categoryId: "entertainment",
+    hint: "Favorite creator nickname + old bike lock code.",
+  },
+  {
+    id: "4",
+    title: "Notion",
+    categoryId: "work",
+    hint: "Work motto from 2021 with one symbol in the middle.",
+  },
+  {
+    id: "5",
+    title: "Duolingo",
+    categoryId: "general",
+    hint: "Language goal city + day I started the streak.",
+  },
+  {
+    id: "6",
+    title: "Google Maps",
+    categoryId: "general",
+    hint: "Road trip destination and car plate ending.",
+  },
+  {
+    id: "7",
+    title: "Airbnb",
+    categoryId: "shopping",
+    hint: "First host name + check-in month number.",
+  },
+  {
+    id: "8",
+    title: "Kindle",
+    categoryId: "entertainment",
+    hint: "Favorite author initials + page count of top book.",
+  },
+  {
+    id: "9",
+    title: "TikTok",
+    categoryId: "social",
+    hint: "Old username style with two extra punctuation marks.",
+  },
+  {
+    id: "10",
+    title: "Discord",
+    categoryId: "social",
+    hint: "Gaming tag + the server number I joined first.",
+  },
+  {
+    id: "11",
+    title: "Slack",
+    categoryId: "work",
+    hint: "Team nickname and sprint number when I got promoted.",
+  },
+  {
+    id: "12",
+    title: "Uber",
+    categoryId: "finance",
+    hint: "Airport code + last two digits of my old phone.",
+  },
+  {
+    id: "13",
+    title: "Pinterest",
+    categoryId: "social",
+    hint: "Dream house style + childhood street number.",
+  },
+  {
+    id: "14",
+    title: "X",
+    categoryId: "social",
+    hint: "First handle idea with vowels swapped.",
+  },
+  {
+    id: "15",
+    title: "GitHub",
+    categoryId: "work",
+    hint: "First repo name + commit count milestone.",
+  },
+] as const;

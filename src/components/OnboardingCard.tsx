@@ -1,20 +1,20 @@
 import { colors } from "@/constants/colors";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import React, { ComponentProps } from "react";
+import { ComponentProps } from "react";
 import { StyleSheet, View } from "react-native";
 import Typography from "./Typography";
 
-type IntroductionCardProps = {
+type OnboardingCardProps = {
   iconName: ComponentProps<typeof MaterialCommunityIcons>["name"];
   title: string;
   description: string;
 };
 
-export default function IntroductionCard({
+export default function OnboardingCard({
   iconName,
   title,
   description,
-}: IntroductionCardProps) {
+}: OnboardingCardProps) {
   return (
     <View style={styles.container}>
       <MaterialCommunityIcons

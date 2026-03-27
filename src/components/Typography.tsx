@@ -1,5 +1,5 @@
 import { colors } from "@/constants/colors";
-import React, { ReactNode } from "react";
+import { ReactNode } from "react";
 import { StyleProp, Text, TextProps, TextStyle } from "react-native";
 
 const FONT_FAMILIES = {
