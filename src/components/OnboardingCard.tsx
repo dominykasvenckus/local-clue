@@ -1,11 +1,11 @@
-import { colors } from "@/constants/colors";
+import { colors } from "@/constants";
+import { IconName } from "@/types";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { ComponentProps } from "react";
 import { StyleSheet, View } from "react-native";
 import Typography from "./Typography";
 
 type OnboardingCardProps = {
-  iconName: ComponentProps<typeof MaterialCommunityIcons>["name"];
+  iconName: IconName;
   title: string;
   description: string;
 };
@@ -29,7 +29,7 @@ export default function OnboardingCard({
           lineHeight={20}
           fontWeight="medium"
         >
-          {title}
+          {title.toUpperCase()}
         </Typography>
         <Typography color={colors.onSurfaceMuted} fontSize={14} lineHeight={22}>
           {description}

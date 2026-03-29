@@ -1,8 +1,7 @@
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import type { ComponentProps } from "react";
+import type { IconName } from "./icon";
 
 export type Category = {
   id: string;
   title: string;
-  iconName: ComponentProps<typeof MaterialCommunityIcons>["name"];
+  iconName: IconName;
 };

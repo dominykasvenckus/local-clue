@@ -1,18 +1,18 @@
-import { colors } from "@/constants/colors";
+import { colors } from "@/constants";
+import { IconName } from "@/types";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
-import { PressableScale } from "pressto";
-import { ComponentProps } from "react";
 import { StyleSheet } from "react-native";
+import PressableScale from "./PressableScale";
 
 type IconButtonProps = {
-  iconName: ComponentProps<typeof MaterialCommunityIcons>["name"];
+  iconName: IconName;
   onPress: () => void;
 };
 
 export default function IconButton({ iconName, onPress }: IconButtonProps) {
   return (
-    <PressableScale onPress={onPress} style={styles.container}>
+    <PressableScale style={styles.container} onPress={onPress}>
       <LinearGradient
         colors={[colors.primaryAccent, colors.primaryContainer]}
         start={{ x: 0, y: 0 }}

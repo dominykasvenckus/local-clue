@@ -1,5 +1,5 @@
-import { CATEGORIES } from "@/constants/categories";
-import { Category } from "@/types/category";
+import { categories } from "@/constants";
+import { Category } from "@/types";
 import { Dispatch, SetStateAction } from "react";
 import { FlatList, StyleSheet } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -30,7 +30,7 @@ export default function CategoryList({
   return (
     <FlatList
       horizontal
-      data={CATEGORIES}
+      data={categories}
       renderItem={renderItem}
       style={{ marginLeft: -insets.left - 24, marginRight: -insets.right - 24 }}
       contentContainerStyle={[
@@ -41,6 +41,7 @@ export default function CategoryList({
         },
       ]}
       showsHorizontalScrollIndicator={false}
+      keyboardShouldPersistTaps="handled"
     />
   );
 }

@@ -1,9 +1,10 @@
 export { default as Button } from "./Button";
 export { default as CategoryList } from "./CategoryList";
 export { default as Chip } from "./Chip";
-export { default as HintCard } from "./HintCard";
+export { default as ClueCard } from "./ClueCard";
 export { default as IconButton } from "./IconButton";
 export { default as OnboardingCard } from "./OnboardingCard";
+export { default as PressableScale } from "./PressableScale";
 export { default as SearchInput } from "./SearchInput";
 export { default as TabBar } from "./TabBar";
 export { default as Typography } from "./Typography";

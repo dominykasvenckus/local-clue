@@ -1,14 +1,15 @@
-import { colors } from "@/constants/colors";
+import { colors } from "@/constants";
+import { IconName } from "@/types";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
-import { PressableScale } from "pressto";
-import { ComponentProps, useState } from "react";
+import { useState } from "react";
 import { ActivityIndicator, StyleSheet, View } from "react-native";
+import PressableScale from "./PressableScale";
 import Typography from "./Typography";
 
 type ButtonProps = {
   text: string;
-  iconName?: ComponentProps<typeof MaterialCommunityIcons>["name"];
+  iconName?: IconName;
   iconSide?: "left" | "right";
   disabled?: boolean;
   loading?: boolean;
@@ -47,9 +48,9 @@ export default function Button({
 
   return (
     <PressableScale
+      style={[styles.container, disabled && styles.disabledContainer]}
+      disabled={disabled || isLoading}
       onPress={handlePress}
-      enabled={!disabled && !isLoading}
-      style={styles.container}
     >
       <LinearGradient
         colors={[colors.primaryAccent, colors.primaryContainer]}
@@ -74,7 +75,7 @@ export default function Button({
         </View>
         {isLoading && (
           <ActivityIndicator
-            size="small"
+            size="large"
             color={colors.onPrimary}
             style={styles.activityIndicator}
           />
@@ -87,12 +88,15 @@ export default function Button({
 const styles = StyleSheet.create({
   container: {
     borderRadius: 8,
+    overflow: "hidden",
+  },
+  disabledContainer: {
+    opacity: 0.5,
   },
   gradient: {
     justifyContent: "center",
     alignItems: "center",
     padding: 20,
-    borderRadius: 8,
   },
   contentContainer: {
     flexDirection: "row",

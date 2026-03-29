@@ -1,36 +1,11 @@
 import { Button, OnboardingCard, Typography } from "@/components";
-import { colors } from "@/constants/colors";
+import { colors } from "@/constants";
+import { onboardingCards } from "@/constants/onboardingCards";
 import { useApplicationStore } from "@/storage/stores";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
-import { ComponentProps } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-
-const ONBOARDING_CARDS: {
-  iconName: ComponentProps<typeof OnboardingCard>["iconName"];
-  title: string;
-  description: string;
-}[] = [
-  {
-    iconName: "lightbulb-on-outline",
-    title: "STORE HINTS, NOT PASSWORDS",
-    description:
-      "Save only memory clues, never the actual password. Your secrets stay in your head, where they belong.",
-  },
-  {
-    iconName: "cellphone-lock",
-    title: "LOCAL-ONLY STORAGE",
-    description:
-      "Everything is stored on this device and never leaves it. No sync, no servers, no cloud transfer.",
-  },
-  {
-    iconName: "magnify",
-    title: "FIND HINTS QUICKLY",
-    description:
-      "Use search to find the hint you need in seconds, even when you have many saved hints.",
-  },
-];
 
 export default function Onboarding() {
   const insets = useSafeAreaInsets();
@@ -53,6 +28,7 @@ export default function Onboarding() {
               paddingRight: insets.right + 24,
             },
           ]}
+          showsVerticalScrollIndicator={false}
         >
           <View style={styles.iconContainer}>
             <MaterialCommunityIcons
@@ -78,10 +54,10 @@ export default function Onboarding() {
             textAlign="center"
             spacingBottom={48}
           >
-            Save, organize, and manage your password hints in one simple place.
+            Save, organize, and manage your password clues in one simple place.
           </Typography>
           <View style={styles.cardsContainer}>
-            {ONBOARDING_CARDS.map((card, index) => (
+            {onboardingCards.map((card, index) => (
               <OnboardingCard key={index} {...card} />
             ))}
           </View>

@@ -1,8 +1,6 @@
-import { colors } from "@/constants/colors";
+import { colors } from "@/constants";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { PressableScale } from "pressto";
 import {
-  Pressable,
   StyleProp,
   StyleSheet,
   TextInput,
@@ -10,6 +8,7 @@ import {
   TextStyle,
   View,
 } from "react-native";
+import PressableScale from "./PressableScale";
 
 type SearchInputProps = {
   value?: string;
@@ -50,18 +49,17 @@ export default function SearchInput({
         />
       </View>
       {value && (
-        <Pressable style={styles.rightIconContainer}>
-          <PressableScale
-            onPress={handleClearPress}
-            style={styles.rightIconInnerContainer}
-          >
-            <MaterialCommunityIcons
-              name="close-circle"
-              size={20}
-              color={placeholderTextColor}
-            />
-          </PressableScale>
-        </Pressable>
+        <PressableScale
+          style={styles.rightIconContainer}
+          onPress={handleClearPress}
+          hitSlop={6}
+        >
+          <MaterialCommunityIcons
+            name="close-circle"
+            size={20}
+            color={placeholderTextColor}
+          />
+        </PressableScale>
       )}
     </View>
   );
@@ -92,9 +90,6 @@ const styles = StyleSheet.create({
   },
   rightIconContainer: {
     position: "absolute",
-    right: 8,
-  },
-  rightIconInnerContainer: {
-    padding: 6,
+    right: 14,
   },
 });

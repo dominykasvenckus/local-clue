@@ -1,8 +1,7 @@
-import { colors } from "@/constants/colors";
+import { colors } from "@/constants";
 import { useApplicationStore } from "@/storage/stores";
 import { DefaultTheme, ThemeProvider } from "@react-navigation/native";
 import { Stack } from "expo-router";
-import { PressablesConfig } from "pressto";
 import { StyleSheet } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
@@ -19,18 +18,16 @@ export default function RootLayout() {
 
   return (
     <GestureHandlerRootView style={styles.container}>
-      <PressablesConfig defaultProps={{ rippleColor: "transparent" }}>
-        <ThemeProvider value={theme}>
-          <Stack screenOptions={{ headerShown: false }}>
-            <Stack.Protected guard={isOnboarded}>
-              <Stack.Screen name="(tabs)" />
-            </Stack.Protected>
-            <Stack.Protected guard={!isOnboarded}>
-              <Stack.Screen name="onboarding" />
-            </Stack.Protected>
-          </Stack>
-        </ThemeProvider>
-      </PressablesConfig>
+      <ThemeProvider value={theme}>
+        <Stack screenOptions={{ headerShown: false }}>
+          <Stack.Protected guard={isOnboarded}>
+            <Stack.Screen name="(tabs)" />
+          </Stack.Protected>
+          <Stack.Protected guard={!isOnboarded}>
+            <Stack.Screen name="onboarding" />
+          </Stack.Protected>
+        </Stack>
+      </ThemeProvider>
     </GestureHandlerRootView>
   );
 }

@@ -1,14 +1,12 @@
+import { colors } from "@/constants";
+import { IconName } from "@/types";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
-import { ComponentProps } from "react";
 import { Pressable, StyleSheet, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { colors } from "../constants/colors";
 import Typography from "./Typography";
 
-const getIconName = (
-  routeName: string,
-): ComponentProps<typeof MaterialCommunityIcons>["name"] => {
+const getIconName = (routeName: string): IconName => {
   switch (routeName) {
     case "index":
       return "lightbulb-outline";

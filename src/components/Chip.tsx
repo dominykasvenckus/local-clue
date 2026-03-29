@@ -1,12 +1,12 @@
-import { colors } from "@/constants/colors";
+import { colors } from "@/constants";
+import { IconName } from "@/types";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { PressableScale } from "pressto";
-import { ComponentProps } from "react";
 import { StyleSheet, View } from "react-native";
+import PressableScale from "./PressableScale";
 import Typography from "./Typography";
 
 type ChipProps = {
-  iconName: ComponentProps<typeof MaterialCommunityIcons>["name"];
+  iconName: IconName;
   title: string;
   active?: boolean;
   onPress?: () => void;
@@ -24,8 +24,8 @@ export default function Chip({
         styles.container,
         active ? styles.containerActive : styles.containerInactive,
       ]}
+      disabled={!onPress}
       onPress={onPress}
-      enabled={!!onPress}
     >
       <View style={styles.innerContainer}>
         <MaterialCommunityIcons

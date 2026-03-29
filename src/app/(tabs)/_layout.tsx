@@ -7,7 +7,7 @@ export default function Layout() {
       tabBar={(props) => <TabBar {...props} />}
       screenOptions={{ headerShown: false }}
     >
-      <Tabs.Screen name="index" options={{ title: "Hints" }} />
+      <Tabs.Screen name="index" options={{ title: "Clues" }} />
       <Tabs.Screen name="more" options={{ title: "More" }} />
     </Tabs>
   );
