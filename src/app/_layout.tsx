@@ -1,3 +1,4 @@
+import { Header } from "@/components";
 import { colors } from "@/constants";
 import { useApplicationStore } from "@/storage/stores";
 import { DefaultTheme, ThemeProvider } from "@react-navigation/native";
@@ -19,9 +20,23 @@ export default function RootLayout() {
   return (
     <GestureHandlerRootView style={styles.container}>
       <ThemeProvider value={theme}>
-        <Stack screenOptions={{ headerShown: false }}>
+        <Stack
+          screenOptions={{
+            header: (props) => <Header {...props} />,
+            headerShown: false,
+          }}
+        >
           <Stack.Protected guard={isOnboarded}>
             <Stack.Screen name="(tabs)" />
+            <Stack.Screen
+              name="clues/add"
+              options={{
+                headerShown: true,
+                title: "Add clue",
+                presentation: "modal",
+                animation: "slide_from_bottom",
+              }}
+            />
           </Stack.Protected>
           <Stack.Protected guard={!isOnboarded}>
             <Stack.Screen name="onboarding" />

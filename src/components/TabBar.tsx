@@ -8,7 +8,7 @@ import Typography from "./Typography";
 
 const getIconName = (routeName: string): IconName => {
   switch (routeName) {
-    case "index":
+    case "clues":
       return "lightbulb-outline";
     case "more":
       return "dots-horizontal";
@@ -26,78 +26,80 @@ export default function TabBar({
 
   return (
     <View style={[styles.container, { paddingBottom: bottom }]}>
-      {state.routes.map((route, index) => {
-        const { options } = descriptors[route.key];
-        const label =
-          options.tabBarLabel !== undefined &&
-          typeof options.tabBarLabel === "string"
-            ? options.tabBarLabel
-            : options.title !== undefined
-              ? options.title
-              : route.name;
+      {state.routes
+        .filter((route) => route.name !== "index")
+        .map((route) => {
+          const { options } = descriptors[route.key];
+          const label =
+            options.tabBarLabel !== undefined &&
+            typeof options.tabBarLabel === "string"
+              ? options.tabBarLabel
+              : options.title !== undefined
+                ? options.title
+                : route.name;
 
-        const isFocused = state.index === index;
+          const isFocused = state.routes[state.index].key === route.key;
 
-        const handlePress = () => {
-          const event = navigation.emit({
-            type: "tabPress",
-            target: route.key,
-            canPreventDefault: true,
-          });
+          const handlePress = () => {
+            const event = navigation.emit({
+              type: "tabPress",
+              target: route.key,
+              canPreventDefault: true,
+            });
 
-          if (!isFocused && !event.defaultPrevented) {
-            navigation.navigate(route.name, route.params);
-          }
-        };
+            if (!isFocused && !event.defaultPrevented) {
+              navigation.navigate(route.name, route.params);
+            }
+          };
 
-        const handleLongPress = () => {
-          navigation.emit({
-            type: "tabLongPress",
-            target: route.key,
-          });
-        };
+          const handleLongPress = () => {
+            navigation.emit({
+              type: "tabLongPress",
+              target: route.key,
+            });
+          };
 
-        return (
-          <Pressable
-            key={route.key}
-            accessibilityState={isFocused ? { selected: true } : {}}
-            accessibilityLabel={options.tabBarAccessibilityLabel}
-            testID={options.tabBarButtonTestID}
-            onPress={handlePress}
-            onLongPress={handleLongPress}
-            style={styles.tabItem}
-          >
-            <View
-              style={[
-                styles.tabItemContainer,
-                isFocused && styles.activeTabItemContainer,
-              ]}
+          return (
+            <Pressable
+              key={route.key}
+              accessibilityState={isFocused ? { selected: true } : {}}
+              accessibilityLabel={options.tabBarAccessibilityLabel}
+              testID={options.tabBarButtonTestID}
+              onPress={handlePress}
+              onLongPress={handleLongPress}
+              style={styles.tabItem}
             >
-              <MaterialCommunityIcons
-                name={getIconName(route.name)}
-                size={22}
-                color={
-                  isFocused
-                    ? colors.tabBarItemActive
-                    : colors.tabBarItemInactive
-                }
-              />
-              <Typography
-                color={
-                  isFocused
-                    ? colors.tabBarItemActive
-                    : colors.tabBarItemInactive
-                }
-                fontSize={11}
-                lineHeight={14}
-                textAlign="center"
+              <View
+                style={[
+                  styles.tabItemContainer,
+                  isFocused && styles.activeTabItemContainer,
+                ]}
               >
-                {label.toUpperCase()}
-              </Typography>
-            </View>
-          </Pressable>
-        );
-      })}
+                <MaterialCommunityIcons
+                  name={getIconName(route.name)}
+                  size={22}
+                  color={
+                    isFocused
+                      ? colors.tabBarItemActive
+                      : colors.tabBarItemInactive
+                  }
+                />
+                <Typography
+                  color={
+                    isFocused
+                      ? colors.tabBarItemActive
+                      : colors.tabBarItemInactive
+                  }
+                  fontSize={11}
+                  lineHeight={14}
+                  textAlign="center"
+                >
+                  {label.toUpperCase()}
+                </Typography>
+              </View>
+            </Pressable>
+          );
+        })}
     </View>
   );
 }
