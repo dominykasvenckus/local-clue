@@ -62,12 +62,6 @@ export default function Onboarding() {
             ))}
           </View>
         </ScrollView>
-        <LinearGradient
-          colors={[colors.background, colors.backgroundTransparent]}
-          start={{ x: 0, y: 1 }}
-          end={{ x: 0, y: 0 }}
-          style={styles.gradient}
-        />
       </View>
       <View
         style={{
@@ -76,6 +70,12 @@ export default function Onboarding() {
           paddingRight: insets.right + 24,
         }}
       >
+        <LinearGradient
+          colors={[colors.background, colors.backgroundTransparent]}
+          start={{ x: 0, y: 1 }}
+          end={{ x: 0, y: 0 }}
+          style={styles.gradient}
+        />
         <Button
           text="Get started"
           iconName="arrow-right"
@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
   gradient: {
     height: 40,
     position: "absolute",
-    bottom: 0,
+    top: -40,
     left: 0,
     right: 0,
   },

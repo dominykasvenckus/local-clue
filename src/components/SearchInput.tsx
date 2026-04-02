@@ -15,7 +15,7 @@ type SearchInputProps = {
   onChangeText?: (text: string) => void;
   placeholderTextColor?: string;
   style?: StyleProp<TextStyle>;
-} & Omit<TextInputProps, "placeholderTextColor" | "style">;
+} & TextInputProps;
 
 export default function SearchInput({
   value,
@@ -25,7 +25,6 @@ export default function SearchInput({
   ...props
 }: SearchInputProps) {
   const handleClearPress = () => {
-    console.log("Clear button pressed");
     onChangeText?.("");
   };
 

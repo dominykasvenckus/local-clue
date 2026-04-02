@@ -1,23 +1,23 @@
 import { categories, colors } from "@/constants";
+import { Clue } from "@/types";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { useRouter } from "expo-router";
 import { StyleSheet, View } from "react-native";
 import PressableScale from "./PressableScale";
 import Typography from "./Typography";
 
 type ClueCardProps = {
-  title: string;
-  categoryId: string;
-  description: string;
+  clue: Clue;
 };
 
-export default function ClueCard({
-  title,
-  categoryId,
-  description,
-}: ClueCardProps) {
+export default function ClueCard({ clue }: ClueCardProps) {
+  const router = useRouter();
+  const { id, title, text, categoryId } = clue;
   const category = categories.find((cat) => cat.id === categoryId);
 
-  const handleDotsPress = () => {};
+  const handleDotsPress = () => {
+    router.navigate({ pathname: "/clues/[id]/actions", params: { id } });
+  };
 
   return (
     <View style={styles.container}>
@@ -60,7 +60,7 @@ export default function ClueCard({
       </View>
       <View style={styles.textContainer}>
         <Typography color={colors.primarySoft} fontSize={14} lineHeight={20}>
-          {description}
+          {text}
         </Typography>
       </View>
     </View>
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
   },
   textContainer: {
     padding: 12,
-    backgroundColor: colors.scrim,
+    backgroundColor: colors.background,
     borderRadius: 4,
   },
 });

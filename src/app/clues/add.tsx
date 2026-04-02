@@ -1,18 +1,5 @@
-import { Typography } from "@/components";
-import { StyleSheet, View } from "react-native";
+import { ClueEditor } from "@/components";
 
 export default function Add() {
-  return (
-    <View style={styles.container}>
-      <Typography>Add clue</Typography>
-    </View>
-  );
+  return <ClueEditor />;
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-});

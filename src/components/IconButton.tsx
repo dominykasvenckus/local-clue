@@ -34,6 +34,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
   },
   gradient: {
+    justifyContent: "center",
     alignItems: "center",
     padding: 16,
     borderRadius: 12,
