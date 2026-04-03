@@ -38,7 +38,10 @@ export default function SearchInput({
         cursorColor={colors.primaryAccent}
         style={[styles.input, style]}
         autoCorrect={false}
+        spellCheck={false}
         autoComplete="off"
+        autoCapitalize="none"
+        returnKeyType="search"
         {...props}
       />
       <View style={styles.leftIconContainer}>

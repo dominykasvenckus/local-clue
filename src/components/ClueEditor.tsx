@@ -68,6 +68,9 @@ export default function ClueEditor({ clueId }: ClueEditorScreenProps) {
             placeholder="e.g. Netflix"
             value={formValues.title}
             onChangeText={(value) => handleChange("title", value)}
+            autoCorrect={false}
+            spellCheck={false}
+            autoComplete="off"
           />
           <Input
             multiline
@@ -76,6 +79,7 @@ export default function ClueEditor({ clueId }: ClueEditorScreenProps) {
             placeholder="e.g. The street where I grew up"
             value={formValues.text}
             onChangeText={(value) => handleChange("text", value)}
+            autoComplete="off"
           />
           <View style={styles.categoriesContainer}>
             <Label>Category</Label>
