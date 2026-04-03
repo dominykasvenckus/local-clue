@@ -25,7 +25,7 @@ export default function ClueCard({ clue }: ClueCardProps) {
         <View style={styles.iconContainer}>
           <MaterialCommunityIcons
             name={category?.iconName || "help-circle-outline"}
-            size={22}
+            size={24}
             color={colors.primary}
           />
         </View>
@@ -40,8 +40,8 @@ export default function ClueCard({ clue }: ClueCardProps) {
           </Typography>
           <Typography
             color={colors.onSurfaceSubtle}
-            fontSize={10}
-            lineHeight={15}
+            fontSize={12}
+            lineHeight={16}
           >
             {category?.title.toUpperCase()}
           </Typography>
@@ -53,13 +53,13 @@ export default function ClueCard({ clue }: ClueCardProps) {
         >
           <MaterialCommunityIcons
             name="dots-vertical"
-            size={22}
+            size={24}
             color={colors.onSurfaceSubtle}
           />
         </PressableScale>
       </View>
       <View style={styles.textContainer}>
-        <Typography color={colors.primarySoft} fontSize={14} lineHeight={20}>
+        <Typography color={colors.primarySoft} fontSize={15} lineHeight={22}>
           {text}
         </Typography>
       </View>

@@ -77,7 +77,7 @@ export default function TabBar({
               >
                 <MaterialCommunityIcons
                   name={getIconName(route.name)}
-                  size={22}
+                  size={24}
                   color={
                     isFocused
                       ? colors.tabBarItemActive
@@ -90,8 +90,8 @@ export default function TabBar({
                       ? colors.tabBarItemActive
                       : colors.tabBarItemInactive
                   }
-                  fontSize={11}
-                  lineHeight={14}
+                  fontSize={12}
+                  lineHeight={16}
                   textAlign="center"
                 >
                   {label.toUpperCase()}

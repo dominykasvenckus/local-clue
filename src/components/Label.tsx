@@ -18,8 +18,8 @@ export default function Label({
   return (
     <Typography
       color={color}
-      fontSize={14}
-      lineHeight={20}
+      fontSize={15}
+      lineHeight={22}
       fontWeight="semibold"
       {...props}
     >

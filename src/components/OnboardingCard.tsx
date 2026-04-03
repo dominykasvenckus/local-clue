@@ -19,19 +19,19 @@ export default function OnboardingCard({
     <View style={styles.container}>
       <MaterialCommunityIcons
         name={iconName}
-        size={32}
+        size={36}
         color={colors.primary}
       />
       <View style={styles.innerContainer}>
         <Typography
           color={colors.primary}
-          fontSize={14}
-          lineHeight={20}
+          fontSize={15}
+          lineHeight={22}
           fontWeight="medium"
         >
           {title.toUpperCase()}
         </Typography>
-        <Typography color={colors.onSurfaceMuted} fontSize={14} lineHeight={22}>
+        <Typography color={colors.onSurfaceMuted} fontSize={15} lineHeight={23}>
           {description}
         </Typography>
       </View>

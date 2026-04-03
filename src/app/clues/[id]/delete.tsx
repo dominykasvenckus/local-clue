@@ -1,4 +1,4 @@
-import { PressableScale, Sheet, Typography } from "@/components";
+import { ActionButton, Sheet, Typography } from "@/components";
 import { colors } from "@/constants";
 import { useCluesStore } from "@/storage/stores";
 import { TrueSheet } from "@lodev09/react-native-true-sheet";
@@ -11,15 +11,17 @@ export default function Delete() {
   const deleteClue = useCluesStore((state) => state.deleteClue);
   const sheetRef = useRef<TrueSheet>(null);
 
-  const handleDeletePress = () => {
-    deleteClue(params.id);
+  const handleActionPress = (action: "delete" | "cancel") => {
+    if (action === "delete") {
+      deleteClue(params.id);
+    }
     sheetRef.current?.dismiss();
   };
 
   return (
     <Sheet ref={sheetRef}>
-      <View style={styles.contentContainer}>
-        <View style={{ gap: 2 }}>
+      <View style={styles.container}>
+        <View style={styles.textContainer}>
           <Typography
             color={colors.onSurface}
             fontSize={18}
@@ -31,66 +33,37 @@ export default function Delete() {
           </Typography>
           <Typography
             color={colors.onSurfaceMuted}
-            fontSize={13}
-            lineHeight={18}
+            fontSize={14}
+            lineHeight={20}
             textAlign="center"
           >
-            This action cannot be undone.
+            This action cannot be undone
           </Typography>
         </View>
-
-        <PressableScale style={styles.deleteButton} onPress={handleDeletePress}>
-          <Typography
-            color="#F4CCCC"
-            fontSize={15}
-            lineHeight={20}
-            fontWeight="bold"
-            textAlign="center"
-          >
-            Delete
-          </Typography>
-        </PressableScale>
-        <PressableScale
-          style={styles.cancelButton}
-          onPress={() => sheetRef.current?.dismiss()}
-        >
-          <Typography
-            color={colors.onSurface}
-            fontSize={15}
-            lineHeight={20}
-            fontWeight="semibold"
-            textAlign="center"
-          >
-            Cancel
-          </Typography>
-        </PressableScale>
+        <View style={styles.buttonsContainer}>
+          <ActionButton
+            variant="destructiveSolid"
+            title="Delete"
+            onPress={() => handleActionPress("delete")}
+          />
+          <ActionButton
+            title="Cancel"
+            onPress={() => handleActionPress("cancel")}
+          />
+        </View>
       </View>
     </Sheet>
   );
 }
 
 const styles = StyleSheet.create({
-  contentContainer: {
+  container: {
+    gap: 20,
+  },
+  textContainer: {
+    gap: 2,
+  },
+  buttonsContainer: {
     gap: 16,
-  },
-  deleteButton: {
-    minHeight: 60,
-    justifyContent: "center",
-    alignItems: "center",
-    padding: 14,
-    borderRadius: 12,
-    borderWidth: 1,
-    borderColor: "#5D3131",
-    backgroundColor: "#2A1D1D",
-  },
-  cancelButton: {
-    minHeight: 60,
-    justifyContent: "center",
-    alignItems: "center",
-    padding: 14,
-    borderRadius: 12,
-    borderWidth: 1,
-    borderColor: colors.borderSubtle,
-    backgroundColor: colors.surface,
   },
 });

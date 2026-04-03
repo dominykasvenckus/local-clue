@@ -36,7 +36,7 @@ export default function CustomHeader({
           >
             <MaterialCommunityIcons
               name={options.presentation !== "card" ? "close" : "arrow-left"}
-              size={22}
+              size={24}
               color={colors.onSurface}
             />
           </PressableScale>
@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   spacer: {
-    backgroundColor: colors.tabBarBackground,
+    backgroundColor: colors.headerBackground,
   },
   container: {
     flexDirection: "row",
@@ -69,8 +69,8 @@ const styles = StyleSheet.create({
     minHeight: 64,
     paddingVertical: 12,
     borderBottomWidth: 1,
-    borderBottomColor: colors.surfaceHigh,
-    backgroundColor: colors.tabBarBackground,
+    borderBottomColor: colors.divider,
+    backgroundColor: colors.headerBackground,
   },
   iconContainer: {
     position: "absolute",

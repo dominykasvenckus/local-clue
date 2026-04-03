@@ -34,7 +34,8 @@ export default function SearchInput({
         value={value}
         onChangeText={onChangeText}
         placeholderTextColor={placeholderTextColor}
-        selectionColor={colors.primary}
+        selectionColor={colors.primaryContainer}
+        cursorColor={colors.primaryAccent}
         style={[styles.input, style]}
         autoCorrect={false}
         autoComplete="off"
@@ -43,7 +44,7 @@ export default function SearchInput({
       <View style={styles.leftIconContainer}>
         <MaterialCommunityIcons
           name="magnify"
-          size={20}
+          size={22}
           color={placeholderTextColor}
         />
       </View>
@@ -55,7 +56,7 @@ export default function SearchInput({
         >
           <MaterialCommunityIcons
             name="close-circle"
-            size={20}
+            size={22}
             color={placeholderTextColor}
           />
         </PressableScale>
@@ -76,9 +77,9 @@ const styles = StyleSheet.create({
   input: {
     color: colors.onSurface,
     fontFamily: "Manrope-Medium",
-    fontSize: 15,
-    paddingLeft: 44,
-    paddingRight: 48,
+    fontSize: 16,
+    paddingLeft: 46,
+    paddingRight: 50,
     paddingVertical: 14,
     backgroundColor: colors.surface,
   },

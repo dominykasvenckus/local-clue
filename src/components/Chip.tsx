@@ -30,13 +30,13 @@ export default function Chip({
       <View style={styles.innerContainer}>
         <MaterialCommunityIcons
           name={iconName}
-          size={16}
+          size={18}
           color={active ? colors.onPrimary : colors.onSurfaceMuted}
         />
         <Typography
           color={active ? colors.onPrimary : colors.onSurfaceMuted}
-          fontSize={13}
-          lineHeight={16}
+          fontSize={14}
+          lineHeight={18}
           fontWeight="semibold"
         >
           {title}

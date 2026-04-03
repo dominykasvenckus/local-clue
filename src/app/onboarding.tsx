@@ -75,6 +75,7 @@ export default function Onboarding() {
           start={{ x: 0, y: 1 }}
           end={{ x: 0, y: 0 }}
           style={styles.gradient}
+          pointerEvents="none"
         />
         <Button
           text="Get started"

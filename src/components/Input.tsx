@@ -32,7 +32,8 @@ export default function Input({
       {label && <Label color={labelColor}>{label}</Label>}
       <TextInput
         placeholderTextColor={colors.onSurfaceMuted}
-        selectionColor={colors.primary}
+        selectionColor={colors.primaryContainer}
+        cursorColor={colors.primaryAccent}
         multiline={multiline}
         numberOfLines={multiline ? undefined : 1}
         style={[
@@ -57,8 +58,8 @@ const styles = StyleSheet.create({
   input: {
     color: colors.onSurface,
     fontFamily: "Manrope-Medium",
-    fontSize: 15,
-    padding: 14,
+    fontSize: 16,
+    padding: 15,
     borderRadius: 12,
     borderWidth: 1,
     borderColor: colors.borderSubtle,

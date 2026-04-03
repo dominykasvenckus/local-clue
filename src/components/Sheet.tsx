@@ -50,7 +50,7 @@ export default function Sheet({
       initialDetentIndex={0}
       scrollable={isScrollable}
       cornerRadius={24}
-      backgroundColor={"#191A1A"}
+      backgroundColor={colors.surface}
       grabberOptions={{
         color: colors.onSurface,
         topMargin: 16,
