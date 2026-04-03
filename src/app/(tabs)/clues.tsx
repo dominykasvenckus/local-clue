@@ -114,7 +114,7 @@ export default function Clues() {
         keyboardShouldPersistTaps="handled"
         keyboardDismissMode="on-drag"
       />
-      <View style={styles.iconContainer}>
+      <View style={[styles.iconContainer, { right: insets.right + 24 }]}>
         <IconButton iconName="plus" onPress={handleAddPress} />
       </View>
     </View>
@@ -143,7 +143,6 @@ const styles = StyleSheet.create({
   },
   iconContainer: {
     position: "absolute",
-    right: 24,
     bottom: 32,
     gap: 8,
   },

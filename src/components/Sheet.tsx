@@ -8,7 +8,6 @@ import {
 import { useRouter } from "expo-router";
 import { ComponentProps, RefObject, useState } from "react";
 import { ScrollView, StyleSheet } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 type SheetProps = {
   ref?: RefObject<TrueSheet | null>;
@@ -24,7 +23,6 @@ export default function Sheet({
   children,
   ...props
 }: SheetProps) {
-  const insets = useSafeAreaInsets();
   const router = useRouter();
   const [isScrollable, setIsScrollable] = useState(false);
 
@@ -62,13 +60,7 @@ export default function Sheet({
     >
       <ScrollView
         nestedScrollEnabled={isScrollable}
-        contentContainerStyle={[
-          styles.contentContainer,
-          {
-            paddingLeft: insets.left + 24,
-            paddingRight: insets.right + 24,
-          },
-        ]}
+        contentContainerStyle={styles.contentContainer}
         showsVerticalScrollIndicator={false}
         keyboardShouldPersistTaps="handled"
       >
@@ -82,5 +74,6 @@ const styles = StyleSheet.create({
   contentContainer: {
     paddingTop: 44,
     paddingBottom: 24,
+    paddingHorizontal: 24,
   },
 });

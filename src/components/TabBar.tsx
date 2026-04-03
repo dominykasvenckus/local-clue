@@ -22,84 +22,89 @@ export default function TabBar({
   descriptors,
   navigation,
 }: BottomTabBarProps) {
-  const { bottom } = useSafeAreaInsets();
+  const insets = useSafeAreaInsets();
+  const visibleRoutes = state.routes.filter((route) => route.name !== "index");
 
   return (
-    <View style={[styles.container, { paddingBottom: bottom }]}>
-      {state.routes
-        .filter((route) => route.name !== "index")
-        .map((route) => {
-          const { options } = descriptors[route.key];
-          const label =
-            options.tabBarLabel !== undefined &&
-            typeof options.tabBarLabel === "string"
-              ? options.tabBarLabel
-              : options.title !== undefined
-                ? options.title
-                : route.name;
+    <View style={[styles.container, { paddingBottom: insets.bottom }]}>
+      {visibleRoutes.map((route, index) => {
+        const { options } = descriptors[route.key];
+        const label =
+          options.tabBarLabel !== undefined &&
+          typeof options.tabBarLabel === "string"
+            ? options.tabBarLabel
+            : options.title !== undefined
+              ? options.title
+              : route.name;
 
-          const isFocused = state.routes[state.index].key === route.key;
+        const isFocused = state.routes[state.index].key === route.key;
 
-          const handlePress = () => {
-            const event = navigation.emit({
-              type: "tabPress",
-              target: route.key,
-              canPreventDefault: true,
-            });
+        const handlePress = () => {
+          const event = navigation.emit({
+            type: "tabPress",
+            target: route.key,
+            canPreventDefault: true,
+          });
 
-            if (!isFocused && !event.defaultPrevented) {
-              navigation.navigate(route.name, route.params);
-            }
-          };
+          if (!isFocused && !event.defaultPrevented) {
+            navigation.navigate(route.name, route.params);
+          }
+        };
 
-          const handleLongPress = () => {
-            navigation.emit({
-              type: "tabLongPress",
-              target: route.key,
-            });
-          };
+        const handleLongPress = () => {
+          navigation.emit({
+            type: "tabLongPress",
+            target: route.key,
+          });
+        };
 
-          return (
-            <Pressable
-              key={route.key}
-              accessibilityState={isFocused ? { selected: true } : {}}
-              accessibilityLabel={options.tabBarAccessibilityLabel}
-              testID={options.tabBarButtonTestID}
-              onPress={handlePress}
-              onLongPress={handleLongPress}
-              style={styles.tabItem}
+        return (
+          <Pressable
+            key={route.key}
+            accessibilityState={isFocused ? { selected: true } : {}}
+            accessibilityLabel={options.tabBarAccessibilityLabel}
+            testID={options.tabBarButtonTestID}
+            onPress={handlePress}
+            onLongPress={handleLongPress}
+            style={[
+              styles.tabItem,
+              index === 0 && { paddingLeft: insets.left + 12 },
+              index === visibleRoutes.length - 1 && {
+                paddingRight: insets.right + 12,
+              },
+            ]}
+          >
+            <View
+              style={[
+                styles.tabItemContainer,
+                isFocused && styles.activeTabItemContainer,
+              ]}
             >
-              <View
-                style={[
-                  styles.tabItemContainer,
-                  isFocused && styles.activeTabItemContainer,
-                ]}
+              <MaterialCommunityIcons
+                name={getIconName(route.name)}
+                size={24}
+                color={
+                  isFocused
+                    ? colors.tabBarItemActive
+                    : colors.tabBarItemInactive
+                }
+              />
+              <Typography
+                color={
+                  isFocused
+                    ? colors.tabBarItemActive
+                    : colors.tabBarItemInactive
+                }
+                fontSize={12}
+                lineHeight={16}
+                textAlign="center"
               >
-                <MaterialCommunityIcons
-                  name={getIconName(route.name)}
-                  size={24}
-                  color={
-                    isFocused
-                      ? colors.tabBarItemActive
-                      : colors.tabBarItemInactive
-                  }
-                />
-                <Typography
-                  color={
-                    isFocused
-                      ? colors.tabBarItemActive
-                      : colors.tabBarItemInactive
-                  }
-                  fontSize={12}
-                  lineHeight={16}
-                  textAlign="center"
-                >
-                  {label.toUpperCase()}
-                </Typography>
-              </View>
-            </Pressable>
-          );
-        })}
+                {label.toUpperCase()}
+              </Typography>
+            </View>
+          </Pressable>
+        );
+      })}
     </View>
   );
 }
@@ -116,7 +121,8 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    padding: 12,
+    paddingTop: 12,
+    paddingBottom: 12,
   },
   tabItemContainer: {
     justifyContent: "center",

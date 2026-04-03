@@ -93,7 +93,6 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     flexGrow: 1,
-    backgroundColor: colors.background,
   },
   iconContainer: {
     alignSelf: "center",
