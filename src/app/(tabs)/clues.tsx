@@ -99,7 +99,7 @@ export default function Clues() {
       <FlatList
         ref={flatListRef}
         data={filteredClues}
-        renderItem={({ item }) => <ClueCard clue={item} />}
+        renderItem={({ item }) => <ClueCard {...item} />}
         ItemSeparatorComponent={() => <View style={styles.separator} />}
         ListEmptyComponent={ListEmptyComponent}
         contentContainerStyle={[

@@ -6,13 +6,15 @@ import { StyleSheet, View } from "react-native";
 import PressableScale from "./PressableScale";
 import Typography from "./Typography";
 
-type ClueCardProps = {
-  clue: Clue;
-};
+type ClueCardProps = Clue;
 
-export default function ClueCard({ clue }: ClueCardProps) {
+export default function ClueCard({
+  id,
+  title,
+  text,
+  categoryId,
+}: ClueCardProps) {
   const router = useRouter();
-  const { id, title, text, categoryId } = clue;
   const category = categories.find((cat) => cat.id === categoryId);
 
   const handleDotsPress = () => {

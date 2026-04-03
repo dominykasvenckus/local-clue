@@ -1,10 +1,4 @@
-import { IconName } from "@/types";
-
-type OnboardingCard = {
-  iconName: IconName;
-  title: string;
-  description: string;
-};
+import { OnboardingCard } from "@/types";
 
 export const onboardingCards: OnboardingCard[] = [
   {

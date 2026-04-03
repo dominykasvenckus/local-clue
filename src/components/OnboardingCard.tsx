@@ -1,14 +1,10 @@
 import { colors } from "@/constants";
-import { IconName } from "@/types";
+import { OnboardingCard as OnboardingCardType } from "@/types";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { StyleSheet, View } from "react-native";
 import Typography from "./Typography";
 
-type OnboardingCardProps = {
-  iconName: IconName;
-  title: string;
-  description: string;
-};
+type OnboardingCardProps = OnboardingCardType;
 
 export default function OnboardingCard({
   iconName,
