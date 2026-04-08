@@ -4,6 +4,7 @@ export { default as CategoryList } from "./CategoryList";
 export { default as Chip } from "./Chip";
 export { default as ClueCard } from "./ClueCard";
 export { default as ClueEditor } from "./ClueEditor";
+export { default as ConfirmationSheet } from "./ConfirmationSheet";
 export { default as Header } from "./Header";
 export { default as IconButton } from "./IconButton";
 export { default as Input } from "./Input";

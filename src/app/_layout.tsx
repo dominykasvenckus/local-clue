@@ -72,6 +72,13 @@ export default function RootLayout() {
                   animation: "none",
                 }}
               />
+              <Stack.Screen
+                name="settings/clear-data"
+                options={{
+                  presentation: "transparentModal",
+                  animation: "none",
+                }}
+              />
             </Stack.Protected>
             <Stack.Protected guard={!isOnboarded}>
               <Stack.Screen name="onboarding" />

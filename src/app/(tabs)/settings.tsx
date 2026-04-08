@@ -1,17 +1,19 @@
 import { SettingCard, Typography } from "@/components";
 import { colors, settingCards } from "@/constants";
 import Constants from "expo-constants";
+import { useRouter } from "expo-router";
 import { ScrollView, StyleSheet, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function Settings() {
   const insets = useSafeAreaInsets();
+  const router = useRouter();
   const version = Constants.expoConfig?.version;
 
   const actions: Record<string, () => void> = {
     import: () => console.log("Importing..."),
     export: () => console.log("Exporting..."),
-    clear: () => console.log("Clearing..."),
+    clear: () => router.navigate("/settings/clear-data"),
   };
 
   return (

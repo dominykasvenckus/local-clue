@@ -20,6 +20,13 @@ const variantStyles = {
     iconColor: colors.danger,
     textColor: colors.danger,
   },
+  solid: {
+    borderColor: colors.primaryAccent,
+    backgroundColor: colors.primaryAccent,
+    iconBackgroundColor: undefined,
+    iconColor: undefined,
+    textColor: colors.onPrimary,
+  },
   destructiveSolid: {
     borderColor: colors.danger,
     backgroundColor: colors.dangerContainer,
@@ -39,13 +46,11 @@ type StandardActionButtonProps = {
   iconName?: IconName;
 } & BaseActionButtonProps;
 
-type DestructiveSolidActionButtonProps = {
-  variant: "destructiveSolid";
+type SolidActionButtonProps = {
+  variant: "solid" | "destructiveSolid";
 } & BaseActionButtonProps;
 
-type ActionButtonProps =
-  | StandardActionButtonProps
-  | DestructiveSolidActionButtonProps;
+type ActionButtonProps = StandardActionButtonProps | SolidActionButtonProps;
 
 export default function ActionButton(props: ActionButtonProps) {
   const { variant = "default", title, onPress } = props;

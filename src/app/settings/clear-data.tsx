@@ -1,26 +1,20 @@
 import { ConfirmationSheet } from "@/components";
 import { useCluesStore } from "@/storage/stores";
 import { TrueSheet } from "@lodev09/react-native-true-sheet";
-import { useLocalSearchParams } from "expo-router";
 import { useRef } from "react";
 
-export default function Delete() {
-  const params = useLocalSearchParams<{ id: string }>();
-  const deleteClue = useCluesStore((state) => state.deleteClue);
+export default function ClearData() {
+  const clearClues = useCluesStore((state) => state.clearClues);
   const sheetRef = useRef<TrueSheet>(null);
-
-  const handleConfirmPress = () => {
-    deleteClue(params.id);
-  };
 
   return (
     <ConfirmationSheet
       ref={sheetRef}
-      title="Delete this clue?"
+      title="Clear all data?"
       description="This action cannot be undone"
       confirmVariant="destructiveSolid"
-      confirmTitle="Delete"
-      onConfirmPress={handleConfirmPress}
+      confirmTitle="Clear data"
+      onConfirmPress={clearClues}
     />
   );
 }
