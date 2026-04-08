@@ -10,8 +10,8 @@ const getIconName = (routeName: string): IconName => {
   switch (routeName) {
     case "clues":
       return "lightbulb-outline";
-    case "more":
-      return "dots-horizontal";
+    case "settings":
+      return "cog-outline";
     default:
       return "help";
   }

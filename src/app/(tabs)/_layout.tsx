@@ -8,7 +8,7 @@ export default function Layout() {
       screenOptions={{ headerShown: false }}
     >
       <Tabs.Screen name="clues" options={{ title: "Clues" }} />
-      <Tabs.Screen name="more" options={{ title: "More" }} />
+      <Tabs.Screen name="settings" options={{ title: "Settings" }} />
       <Tabs.Screen name="index" options={{ href: null }} />
     </Tabs>
   );
