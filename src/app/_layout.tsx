@@ -1,14 +1,19 @@
-import { Header } from "@/components";
+import { ConfirmationSheet, Header } from "@/components";
 import { colors } from "@/constants";
+import { initializeStorage } from "@/storage/storage";
 import { useApplicationStore } from "@/storage/stores";
+import { TrueSheet } from "@lodev09/react-native-true-sheet";
 import { DefaultTheme, ThemeProvider } from "@react-navigation/native";
 import * as NavigationBar from "expo-navigation-bar";
 import { Stack } from "expo-router";
+import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
-import { useEffect } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Platform, StyleSheet } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { KeyboardProvider } from "react-native-keyboard-controller";
+
+SplashScreen.preventAutoHideAsync();
 
 const theme = {
   ...DefaultTheme,
@@ -20,12 +25,49 @@ const theme = {
 
 export default function RootLayout() {
   const isOnboarded = useApplicationStore((state) => state.isOnboarded);
+  const [isReady, setIsReady] = useState(false);
+  const hasError = useRef(false);
+  const sheetRef = useRef<TrueSheet>(null);
+
+  const init = useCallback(async () => {
+    try {
+      await initializeStorage();
+      if (hasError.current) {
+        await sheetRef.current?.dismiss();
+      }
+      hasError.current = false;
+    } catch (error) {
+      console.error("Error initializing storage:", error);
+      hasError.current = true;
+    } finally {
+      setIsReady(true);
+    }
+  }, []);
 
   useEffect(() => {
     if (Platform.OS === "android") {
       NavigationBar.setStyle("dark");
     }
   }, []);
+
+  useEffect(() => {
+    init();
+  }, [init]);
+
+  useEffect(() => {
+    (async () => {
+      if (isReady) {
+        if (hasError.current) {
+          await sheetRef.current?.present(0, false);
+        }
+        SplashScreen.hide();
+      }
+    })();
+  }, [isReady]);
+
+  if (!isReady) {
+    return null;
+  }
 
   return (
     <GestureHandlerRootView style={styles.container}>
@@ -84,6 +126,15 @@ export default function RootLayout() {
               <Stack.Screen name="onboarding" />
             </Stack.Protected>
           </Stack>
+          <ConfirmationSheet
+            ref={sheetRef}
+            mode="component"
+            dismissible={false}
+            title="Something went wrong"
+            description="The app couldn't load properly. Please try again."
+            confirmTitle="Retry"
+            onConfirmPress={init}
+          />
         </ThemeProvider>
       </KeyboardProvider>
     </GestureHandlerRootView>

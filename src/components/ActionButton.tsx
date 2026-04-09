@@ -1,7 +1,8 @@
 import { colors } from "@/constants";
 import { IconName } from "@/types";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { StyleSheet, View } from "react-native";
+import { useState } from "react";
+import { ActivityIndicator, StyleSheet, View } from "react-native";
 import PressableScale from "./PressableScale";
 import Typography from "./Typography";
 
@@ -38,7 +39,9 @@ const variantStyles = {
 
 type BaseActionButtonProps = {
   title: string;
-  onPress: () => void;
+  disabled?: boolean;
+  loading?: boolean;
+  onPress: () => void | Promise<void>;
 };
 
 type StandardActionButtonProps = {
@@ -53,7 +56,15 @@ type SolidActionButtonProps = {
 type ActionButtonProps = StandardActionButtonProps | SolidActionButtonProps;
 
 export default function ActionButton(props: ActionButtonProps) {
-  const { variant = "default", title, onPress } = props;
+  const [loadingState, setLoadingState] = useState(false);
+
+  const {
+    variant = "default",
+    title,
+    disabled = false,
+    loading,
+    onPress,
+  } = props;
   const iconName = "iconName" in props ? props.iconName : undefined;
   const {
     borderColor,
@@ -62,11 +73,27 @@ export default function ActionButton(props: ActionButtonProps) {
     iconColor,
     textColor,
   } = variantStyles[variant];
+  const isLoading = loading === undefined ? loadingState : loading;
+
+  const handlePress = async () => {
+    const result = onPress();
+    if (props.loading === undefined && result instanceof Promise) {
+      setLoadingState(true);
+      await result.finally(() => {
+        setLoadingState(false);
+      });
+    }
+  };
 
   return (
     <PressableScale
-      style={[styles.actionButton, { borderColor, backgroundColor }]}
-      onPress={onPress}
+      style={[
+        styles.actionButton,
+        { borderColor, backgroundColor },
+        disabled && styles.disabledButton,
+      ]}
+      disabled={disabled || isLoading}
+      onPress={handlePress}
     >
       {iconName && (
         <View
@@ -81,10 +108,17 @@ export default function ActionButton(props: ActionButtonProps) {
         lineHeight={22}
         fontWeight="semibold"
         textAlign={iconName ? "left" : "center"}
-        style={styles.flex}
+        style={[styles.flex, isLoading && styles.hiddenContent]}
       >
         {title}
       </Typography>
+      {isLoading && (
+        <ActivityIndicator
+          size="large"
+          color={textColor}
+          style={styles.activityIndicator}
+        />
+      )}
     </PressableScale>
   );
 }
@@ -101,11 +135,23 @@ const styles = StyleSheet.create({
     borderRadius: 14,
     borderWidth: 1,
     gap: 14,
+    overflow: "hidden",
+  },
+  disabledButton: {
+    opacity: 0.5,
   },
   actionIcon: {
     justifyContent: "center",
     alignItems: "center",
     padding: 8,
     borderRadius: 10,
+  },
+  hiddenContent: {
+    opacity: 0,
+  },
+  activityIndicator: {
+    position: "absolute",
+    left: 0,
+    right: 0,
   },
 });

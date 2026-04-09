@@ -7,14 +7,19 @@ export default function ClearData() {
   const clearClues = useCluesStore((state) => state.clearClues);
   const sheetRef = useRef<TrueSheet>(null);
 
+  const handleConfirmPress = () => {
+    clearClues();
+    sheetRef.current?.dismiss();
+  };
+
   return (
     <ConfirmationSheet
       ref={sheetRef}
-      title="Clear all data?"
+      title="Clear all clues?"
       description="This action cannot be undone"
       confirmVariant="destructiveSolid"
-      confirmTitle="Clear data"
-      onConfirmPress={clearClues}
+      confirmTitle="Clear clues"
+      onConfirmPress={handleConfirmPress}
     />
   );
 }

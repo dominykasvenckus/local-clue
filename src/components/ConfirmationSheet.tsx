@@ -1,6 +1,6 @@
 import { colors } from "@/constants";
-import { TrueSheet } from "@lodev09/react-native-true-sheet";
-import { ComponentProps, RefObject, useRef } from "react";
+import { TrueSheet, TrueSheetProps } from "@lodev09/react-native-true-sheet";
+import { ComponentProps, RefObject } from "react";
 import { StyleSheet, View } from "react-native";
 import ActionButton from "./ActionButton";
 import Sheet from "./Sheet";
@@ -8,32 +8,27 @@ import Typography from "./Typography";
 
 type ConfirmationSheetProps = {
   ref: RefObject<TrueSheet | null>;
+  mode?: "component" | "screen";
+  dismissible?: boolean;
   title: string;
   description?: string;
   confirmVariant?: ComponentProps<typeof ActionButton>["variant"];
   confirmTitle: string;
-  onConfirmPress: () => void;
-};
+  onConfirmPress: () => void | Promise<void>;
+} & TrueSheetProps;
 
 export default function ConfirmationSheet({
   ref,
+  mode,
+  dismissible = true,
   title,
   description,
   confirmVariant = "solid",
   confirmTitle,
   onConfirmPress,
 }: ConfirmationSheetProps) {
-  const sheetRef = useRef<TrueSheet>(null);
-
-  const handleActionPress = (action: "confirm" | "cancel") => {
-    if (action === "confirm") {
-      onConfirmPress();
-    }
-    sheetRef.current?.dismiss();
-  };
-
   return (
-    <Sheet ref={sheetRef}>
+    <Sheet ref={ref} mode={mode} dismissible={dismissible}>
       <View style={styles.container}>
         <View style={styles.textContainer}>
           <Typography
@@ -60,12 +55,16 @@ export default function ConfirmationSheet({
           <ActionButton
             variant={confirmVariant}
             title={confirmTitle}
-            onPress={() => handleActionPress("confirm")}
+            onPress={onConfirmPress}
           />
-          <ActionButton
-            title="Cancel"
-            onPress={() => handleActionPress("cancel")}
-          />
+          {dismissible && (
+            <ActionButton
+              title="Cancel"
+              onPress={() => {
+                ref.current?.dismiss();
+              }}
+            />
+          )}
         </View>
       </View>
     </Sheet>

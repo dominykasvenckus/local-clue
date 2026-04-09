@@ -11,6 +11,7 @@ export default function Delete() {
 
   const handleConfirmPress = () => {
     deleteClue(params.id);
+    sheetRef.current?.dismiss();
   };
 
   return (

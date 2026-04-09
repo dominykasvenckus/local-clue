@@ -8,9 +8,12 @@ import {
 import { useRouter } from "expo-router";
 import { ComponentProps, RefObject, useState } from "react";
 import { ScrollView, StyleSheet } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 type SheetProps = {
   ref?: RefObject<TrueSheet | null>;
+  mode?: "component" | "screen";
+  dismissible?: boolean;
   onDidPresent?: ComponentProps<typeof TrueSheet>["onDidPresent"];
   onDidDismiss?: ComponentProps<typeof TrueSheet>["onDidDismiss"];
   children?: ComponentProps<typeof TrueSheet>["children"];
@@ -18,11 +21,14 @@ type SheetProps = {
 
 export default function Sheet({
   ref,
+  mode = "screen",
+  dismissible = true,
   onDidPresent,
   onDidDismiss,
   children,
   ...props
 }: SheetProps) {
+  const insets = useSafeAreaInsets();
   const router = useRouter();
   const [isScrollable, setIsScrollable] = useState(false);
 
@@ -38,17 +44,22 @@ export default function Sheet({
       onDidDismiss(e);
       return;
     }
-    router.back();
+    if (mode === "screen") {
+      router.back();
+    }
   };
 
   return (
     <TrueSheet
       ref={ref}
       detents={["auto"]}
-      initialDetentIndex={0}
+      initialDetentIndex={mode === "screen" ? 0 : undefined}
       scrollable={isScrollable}
-      cornerRadius={24}
+      dismissible={dismissible}
+      insetAdjustment="never"
       backgroundColor={colors.surface}
+      cornerRadius={24}
+      grabber={dismissible}
       grabberOptions={{
         color: colors.onSurface,
         topMargin: 16,
@@ -60,7 +71,13 @@ export default function Sheet({
     >
       <ScrollView
         nestedScrollEnabled={isScrollable}
-        contentContainerStyle={styles.contentContainer}
+        contentContainerStyle={[
+          styles.contentContainer,
+          {
+            paddingBottom:
+              (isScrollable ? insets.bottom + insets.top : insets.bottom) + 24,
+          },
+        ]}
         showsVerticalScrollIndicator={false}
         keyboardShouldPersistTaps="handled"
       >
@@ -73,7 +90,6 @@ export default function Sheet({
 const styles = StyleSheet.create({
   contentContainer: {
     paddingTop: 44,
-    paddingBottom: 24,
     paddingHorizontal: 24,
   },
 });

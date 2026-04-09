@@ -13,7 +13,7 @@ type ButtonProps = {
   iconSide?: "left" | "right";
   disabled?: boolean;
   loading?: boolean;
-  onPress: () => Promise<void> | void;
+  onPress: () => void | Promise<void>;
 };
 
 export default function Button({
