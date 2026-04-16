@@ -3,20 +3,20 @@ import { SettingCard } from "@/types";
 export const settingCards: SettingCard[] = [
   {
     id: "export",
-    iconName: "database-export-outline",
-    title: "Export clues",
-    description: "Create a backup of all clues stored on this device",
+    iconName: "qrcode",
+    title: "Export with QR",
+    description: "Generate QR codes so another device can import your clues",
   },
   {
     id: "import",
-    iconName: "database-import-outline",
-    title: "Import clues",
-    description: "Restore clues from a backup file you exported earlier",
+    iconName: "qrcode-scan",
+    title: "Import from QR",
+    description: "Scan QR codes from another device to import clues",
   },
   {
     id: "clear",
     variant: "destructive",
-    iconName: "database-remove-outline",
+    iconName: "delete-sweep-outline",
     title: "Clear clues",
     description: "Permanently remove all clues from this device",
   },

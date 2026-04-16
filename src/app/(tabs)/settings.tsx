@@ -11,9 +11,9 @@ export default function Settings() {
   const version = Constants.expoConfig?.version;
 
   const actions: Record<string, () => void> = {
-    import: () => console.log("Importing..."),
-    export: () => console.log("Exporting..."),
-    clear: () => router.navigate("/settings/clear-data"),
+    export: () => router.navigate("/settings/export-clues"),
+    import: () => router.navigate("/settings/import-clues"),
+    clear: () => router.navigate("/settings/clear-clues"),
   };
 
   return (

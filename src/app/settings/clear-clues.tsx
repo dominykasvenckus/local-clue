@@ -3,7 +3,7 @@ import { useCluesStore } from "@/storage/stores";
 import { TrueSheet } from "@lodev09/react-native-true-sheet";
 import { useRef } from "react";
 
-export default function ClearData() {
+export default function ClearClues() {
   const clearClues = useCluesStore((state) => state.clearClues);
   const sheetRef = useRef<TrueSheet>(null);
 
@@ -18,7 +18,7 @@ export default function ClearData() {
       title="Clear all clues?"
       description="This action cannot be undone"
       confirmVariant="destructiveSolid"
-      confirmTitle="Clear clues"
+      confirmTitle="Clear"
       onConfirmPress={handleConfirmPress}
     />
   );

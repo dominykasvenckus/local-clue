@@ -115,7 +115,15 @@ export default function RootLayout() {
                 }}
               />
               <Stack.Screen
-                name="settings/clear-data"
+                name="settings/export-clues"
+                options={{ headerShown: true, title: "Export with QR" }}
+              />
+              <Stack.Screen
+                name="settings/import-clues"
+                options={{ headerShown: true, title: "Import from QR" }}
+              />
+              <Stack.Screen
+                name="settings/clear-clues"
                 options={{
                   presentation: "transparentModal",
                   animation: "none",

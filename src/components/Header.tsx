@@ -32,7 +32,11 @@ export default function CustomHeader({
             onPress={navigation.goBack}
           >
             <MaterialCommunityIcons
-              name={options.presentation !== "card" ? "close" : "arrow-left"}
+              name={
+                (options.presentation || "card") !== "card"
+                  ? "close"
+                  : "arrow-left"
+              }
               size={24}
               color={colors.onSurface}
             />
