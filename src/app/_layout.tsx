@@ -139,7 +139,7 @@ export default function RootLayout() {
             mode="component"
             dismissible={false}
             title="Something went wrong"
-            description="The app couldn't load properly. Please try again."
+            description="The app couldn't load properly. Please try again"
             confirmTitle="Retry"
             onConfirmPress={init}
           />

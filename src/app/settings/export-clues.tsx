@@ -132,7 +132,6 @@ export default function ExportClues() {
       contentContainerStyle={[
         styles.contentContainer,
         {
-          paddingTop: 24,
           paddingBottom: insets.bottom + 24,
           paddingLeft: insets.left + 24,
           paddingRight: insets.right + 24,
@@ -140,17 +139,7 @@ export default function ExportClues() {
       ]}
     >
       <Typography color={colors.onSurfaceSubtle} fontSize={16} lineHeight={24}>
-        Press{" "}
-        <Typography
-          color={colors.onSurfaceSubtle}
-          fontSize={16}
-          lineHeight={24}
-          fontWeight="bold"
-        >
-          Start
-        </Typography>{" "}
-        and point your other device at the screen until the sequence finishes
-        playing
+        Use other device to scan the sequence until all codes are collected
       </Typography>
       <View style={styles.qrGroupContainer}>
         <View style={styles.qrContainer}>{QrContent}</View>
@@ -162,7 +151,7 @@ export default function ExportClues() {
           textAlign="center"
           style={isLoading && styles.hiddenContent}
         >
-          {error
+          {transfer.totalChunks === 0
             ? "Code -/-"
             : `Code ${visibleChunkNumber}/${transfer.totalChunks}`}
         </Typography>
@@ -170,7 +159,7 @@ export default function ExportClues() {
       <View style={styles.actionsContainer}>
         <ActionButton
           variant="solid"
-          title={isPlaying ? "Pause" : "Start"}
+          title={isPlaying ? "Pause sequence" : "Play sequence"}
           onPress={() => setIsPlaying((previous) => !previous)}
           disabled={!canNavigateChunks}
         />
@@ -194,6 +183,7 @@ export default function ExportClues() {
 const styles = StyleSheet.create({
   contentContainer: {
     flexGrow: 1,
+    paddingTop: 24,
     gap: 24,
   },
   qrGroupContainer: {

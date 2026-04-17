@@ -22,7 +22,7 @@ const variantStyles = {
     textColor: colors.danger,
   },
   solid: {
-    borderColor: colors.primaryAccent,
+    borderColor: undefined,
     backgroundColor: colors.primaryAccent,
     iconBackgroundColor: undefined,
     iconColor: undefined,
@@ -89,7 +89,7 @@ export default function ActionButton(props: ActionButtonProps) {
     <PressableScale
       style={[
         styles.actionButton,
-        { borderColor, backgroundColor },
+        { borderWidth: borderColor ? 1 : 0, borderColor, backgroundColor },
         disabled && styles.disabledButton,
       ]}
       disabled={disabled || isLoading}
@@ -133,7 +133,6 @@ const styles = StyleSheet.create({
     minHeight: 66,
     padding: 12,
     borderRadius: 14,
-    borderWidth: 1,
     gap: 14,
     overflow: "hidden",
   },

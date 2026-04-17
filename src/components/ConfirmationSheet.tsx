@@ -14,6 +14,7 @@ type ConfirmationSheetProps = {
   description?: string;
   confirmVariant?: ComponentProps<typeof ActionButton>["variant"];
   confirmTitle: string;
+  confirmLoading?: boolean;
   onConfirmPress: () => void | Promise<void>;
 } & TrueSheetProps;
 
@@ -25,6 +26,7 @@ export default function ConfirmationSheet({
   description,
   confirmVariant = "solid",
   confirmTitle,
+  confirmLoading,
   onConfirmPress,
 }: ConfirmationSheetProps) {
   return (
@@ -55,6 +57,7 @@ export default function ConfirmationSheet({
           <ActionButton
             variant={confirmVariant}
             title={confirmTitle}
+            loading={confirmLoading}
             onPress={onConfirmPress}
           />
           {dismissible && (

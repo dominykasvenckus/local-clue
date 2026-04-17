@@ -10,7 +10,8 @@
     "ios": {
       "supportsTablet": true,
       "infoPlist": {
-        "UIStatusBarStyle": "UIStatusBarStyleLightContent"
+        "UIStatusBarStyle": "UIStatusBarStyleLightContent",
+        "NSCameraUsageDescription": "$(PRODUCT_NAME) needs access to your camera for QR clue import."
       }
     },
     "androidStatusBar": {
@@ -22,7 +23,8 @@
         "backgroundColor": "#0B0F17"
       },
       "predictiveBackGestureEnabled": false,
-      "package": "com.dominykasvenckus.localclue"
+      "package": "com.dominykasvenckus.localclue",
+      "permissions": ["android.permission.CAMERA"]
     },
     "web": {
       "output": "static",
@@ -59,14 +61,7 @@
       ],
       "expo-image",
       "expo-web-browser",
-      "expo-secure-store",
-      [
-        "react-native-vision-camera",
-        {
-          "cameraPermissionText": "Allow $(PRODUCT_NAME) to access your camera for QR clue import.",
-          "enableCodeScanner": true
-        }
-      ]
+      "expo-secure-store"
     ],
     "experiments": {
       "typedRoutes": true,
