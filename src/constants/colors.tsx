@@ -23,5 +23,6 @@ export const colors = {
   tabBarBackground: "#111723",
   tabBarItemActive: "#4F76FF",
   tabBarItemInactive: "#6B7B9E",
+  scannerOverlayBackground: "#0F141CC7",
   divider: "#1E2738",
 } as const;

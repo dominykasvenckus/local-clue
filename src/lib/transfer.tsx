@@ -1,4 +1,5 @@
 import { categories, TRANSFER_PROTOCOL } from "@/constants";
+import { useClueStore } from "@/storage/stores";
 import { Clue, JsonRecord, PreparedTransfer, TransferFrame } from "@/types";
 import {
   CryptoDigestAlgorithm,
@@ -14,8 +15,6 @@ const MAX_TRANSFER_FRAMES = 512;
 const MAX_TRANSFER_PAYLOAD_BYTES =
   MAX_TRANSFER_FRAMES * MAX_TRANSFER_CHUNK_SIZE;
 const MAX_TRANSFER_FRAME_BYTES = 4096;
-
-const MAX_CLUE_ID_BYTES = 128;
 
 const MAX_UTF8_CHARACTER_BYTES = 4;
 const DEFAULT_CHUNK_SAFE_BYTES =
@@ -69,35 +68,36 @@ const isValidTransferFrame = (value: unknown): value is TransferFrame => {
   );
 };
 
-const isValidClue = (value: unknown): value is Clue => {
+const parseClue = (value: unknown): Clue | null => {
   if (!isJsonRecord(value)) {
-    return false;
+    return null;
   }
 
   const { id, title, text, categoryId } = value;
 
-  return (
-    typeof id === "string" &&
-    id.length > 0 &&
-    getStringUtf8ByteLength(id) <= MAX_CLUE_ID_BYTES &&
-    typeof title === "string" &&
-    typeof text === "string" &&
-    typeof categoryId === "string" &&
-    validCategoryIds.has(categoryId)
-  );
-};
+  if (
+    typeof id !== "string" ||
+    !UUID_V4_REGEX.test(id) ||
+    typeof title !== "string" ||
+    title.trim() === "" ||
+    typeof text !== "string" ||
+    text.trim() === "" ||
+    typeof categoryId !== "string" ||
+    !validCategoryIds.has(categoryId)
+  ) {
+    return null;
+  }
 
-const sanitizeClue = (clue: Clue): Clue => {
-  const { id, title, text, categoryId } = clue;
   return { id, title, text, categoryId };
 };
 
-export const hashPayload = async (value: string) =>
-  (
-    await digestStringAsync(CryptoDigestAlgorithm.SHA256, value, {
-      encoding: CryptoEncoding.HEX,
-    })
-  ).toLowerCase();
+const hashPayload = async (value: string) => {
+  const digest = await digestStringAsync(CryptoDigestAlgorithm.SHA256, value, {
+    encoding: CryptoEncoding.HEX,
+  });
+
+  return digest.toLowerCase();
+};
 
 const getUtf8ByteLength = (character: string): number => {
   const codePoint = character.codePointAt(0);
@@ -212,24 +212,15 @@ const findChunkSizeForFrameLimit = (
 };
 
 export const prepareTransferFrames = async (
-  clues: Clue[],
   chunkSize = DEFAULT_QR_CHUNK_SIZE,
 ): Promise<PreparedTransfer> => {
-  if (!clues.every(isValidClue)) {
-    throw new Error("Cannot transfer invalid clues");
+  const clues = useClueStore.getState().clues;
+
+  if (!clues.length) {
+    throw new Error("No clues available to transfer");
   }
 
-  const sanitizedClues = clues.map(sanitizeClue);
-
-  const uniqueIds = new Set<string>();
-  for (const clue of sanitizedClues) {
-    if (uniqueIds.has(clue.id)) {
-      throw new Error("Cannot transfer clues with duplicate ids");
-    }
-    uniqueIds.add(clue.id);
-  }
-
-  const payload = JSON.stringify(sanitizedClues);
+  const payload = JSON.stringify(clues);
   const payloadBytes = getStringUtf8ByteLength(payload);
 
   if (payloadBytes > MAX_TRANSFER_PAYLOAD_BYTES) {
@@ -370,13 +361,15 @@ export const parseCluesPayload = (payload: string): Clue[] | null => {
     const seenIds = new Set<string>();
     const sanitizedClues: Clue[] = [];
 
-    for (const value of parsed) {
-      if (!isValidClue(value) || seenIds.has(value.id)) {
+    for (const item of parsed) {
+      const clue = parseClue(item);
+
+      if (!clue || seenIds.has(clue.id)) {
         return null;
       }
-      seenIds.add(value.id);
 
-      sanitizedClues.push(sanitizeClue(value));
+      seenIds.add(clue.id);
+      sanitizedClues.push(clue);
     }
 
     return sanitizedClues;

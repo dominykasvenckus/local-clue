@@ -17,3 +17,9 @@ export type PreparedTransfer = {
   totalChunks: number;
   frames: string[];
 };
+
+export type TransferSession = {
+  transferId: string | null;
+  totalChunks: number;
+  checksum: string | null;
+};

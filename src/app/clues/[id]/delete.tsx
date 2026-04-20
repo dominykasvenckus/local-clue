@@ -1,12 +1,12 @@
 import { ConfirmationSheet } from "@/components";
-import { useCluesStore } from "@/storage/stores";
+import { useClueStore } from "@/storage/stores";
 import { TrueSheet } from "@lodev09/react-native-true-sheet";
 import { useLocalSearchParams } from "expo-router";
 import { useRef } from "react";
 
 export default function Delete() {
   const params = useLocalSearchParams<{ id: string }>();
-  const deleteClue = useCluesStore((state) => state.deleteClue);
+  const deleteClue = useClueStore((state) => state.deleteClue);
   const sheetRef = useRef<TrueSheet>(null);
 
   const handleConfirmPress = () => {

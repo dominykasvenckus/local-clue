@@ -1,7 +1,7 @@
 import { ActionButton, Typography } from "@/components";
 import { colors } from "@/constants";
 import { prepareTransferFrames } from "@/lib";
-import { useCluesStore } from "@/storage/stores";
+import { useClueStore } from "@/storage/stores";
 import { PreparedTransfer } from "@/types";
 import { useEffect, useState } from "react";
 import {
@@ -13,18 +13,20 @@ import {
 import QRCode from "react-native-qrcode-svg";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-const emptyTransfer: PreparedTransfer = {
+const createEmptyTransfer = (): PreparedTransfer => ({
   transferId: "",
   checksum: "",
   totalChunks: 0,
   frames: [],
-};
+});
 
 export default function ExportClues() {
   const insets = useSafeAreaInsets();
   const { width } = useWindowDimensions();
-  const clues = useCluesStore((state) => state.clues);
-  const [transfer, setTransfer] = useState<PreparedTransfer>(emptyTransfer);
+  const clues = useClueStore((state) => state.clues);
+  const [transfer, setTransfer] = useState<PreparedTransfer>(
+    createEmptyTransfer(),
+  );
   const [activeChunkIndex, setActiveChunkIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -37,7 +39,7 @@ export default function ExportClues() {
 
   useEffect(() => {
     if (!clues.length) {
-      setTransfer(emptyTransfer);
+      setTransfer(createEmptyTransfer());
       setError(null);
       setIsLoading(false);
       return;
@@ -47,7 +49,7 @@ export default function ExportClues() {
 
     (async () => {
       try {
-        const transfer = await prepareTransferFrames(clues);
+        const transfer = await prepareTransferFrames();
         if (!isCancelled) {
           setTransfer(transfer);
           setError(null);
@@ -55,7 +57,7 @@ export default function ExportClues() {
       } catch (error) {
         if (!isCancelled) {
           console.error("Error preparing transfer frames:", error);
-          setTransfer(emptyTransfer);
+          setTransfer(createEmptyTransfer());
           setError("An error occurred while generating the codes");
         }
       } finally {
@@ -77,7 +79,7 @@ export default function ExportClues() {
 
     const interval = setInterval(() => {
       setActiveChunkIndex((previous) => (previous + 1) % transfer.totalChunks);
-    }, 850);
+    }, 1000);
 
     return () => {
       clearInterval(interval);
@@ -88,6 +90,7 @@ export default function ExportClues() {
     if (!transfer.totalChunks) {
       return;
     }
+    setIsPlaying(false);
     setActiveChunkIndex((prev) => {
       return direction === "next"
         ? (prev + 1) % transfer.totalChunks
@@ -101,7 +104,7 @@ export default function ExportClues() {
     }
 
     if (currentFrame) {
-      return <QRCode value={currentFrame} size={qrSize} />;
+      return <QRCode value={currentFrame} size={qrSize} quietZone={16} />;
     } else {
       return (
         <View

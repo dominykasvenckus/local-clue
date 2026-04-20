@@ -22,8 +22,8 @@ const variantStyles = {
     textColor: colors.danger,
   },
   solid: {
-    borderColor: undefined,
-    backgroundColor: colors.primaryAccent,
+    borderColor: colors.primaryAccent,
+    backgroundColor: colors.primaryContainer,
     iconBackgroundColor: undefined,
     iconColor: undefined,
     textColor: colors.onPrimary,

@@ -1,10 +1,10 @@
 import { ConfirmationSheet } from "@/components";
-import { useCluesStore } from "@/storage/stores";
+import { useClueStore } from "@/storage/stores";
 import { TrueSheet } from "@lodev09/react-native-true-sheet";
 import { useRef } from "react";
 
 export default function ClearClues() {
-  const clearClues = useCluesStore((state) => state.clearClues);
+  const clearClues = useClueStore((state) => state.clearClues);
   const sheetRef = useRef<TrueSheet>(null);
 
   const handleConfirmPress = () => {

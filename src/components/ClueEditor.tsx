@@ -1,5 +1,5 @@
 import { categories, colors } from "@/constants";
-import { useCluesStore } from "@/storage/stores";
+import { useClueStore } from "@/storage/stores";
 import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
 import { useState } from "react";
@@ -21,11 +21,11 @@ type ClueEditorScreenProps = {
 export default function ClueEditor({ clueId }: ClueEditorScreenProps) {
   const insets = useSafeAreaInsets();
   const router = useRouter();
-  const clue = useCluesStore((state) =>
+  const clue = useClueStore((state) =>
     clueId ? state.getClue(clueId) : undefined,
   );
-  const addClue = useCluesStore((state) => state.addClue);
-  const updateClue = useCluesStore((state) => state.updateClue);
+  const addClue = useClueStore((state) => state.addClue);
+  const updateClue = useClueStore((state) => state.updateClue);
   const [formValues, setFormValues] = useState({
     title: clue?.title || "",
     text: clue?.text || "",

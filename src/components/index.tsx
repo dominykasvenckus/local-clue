@@ -11,6 +11,10 @@ export { default as Input } from "./Input";
 export { default as Label } from "./Label";
 export { default as OnboardingCard } from "./OnboardingCard";
 export { default as PressableScale } from "./PressableScale";
+export {
+  default as ScannerOverlay,
+  type ScannerOverlayHandle,
+} from "./ScannerOverlay";
 export { default as SearchInput } from "./SearchInput";
 export { default as SettingCard } from "./SettingCard";
 export { default as Sheet } from "./Sheet";

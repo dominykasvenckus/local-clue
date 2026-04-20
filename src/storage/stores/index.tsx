@@ -1,2 +1,2 @@
 export { default as useApplicationStore } from "./application";
-export { default as useCluesStore } from "./clues";
+export { default as useClueStore } from "./clues";

@@ -6,7 +6,7 @@ import {
   Typography,
 } from "@/components";
 import { colors } from "@/constants";
-import { useCluesStore } from "@/storage/stores";
+import { useClueStore } from "@/storage/stores";
 import { Clue } from "@/types";
 import { useRouter } from "expo-router";
 import { useLayoutEffect, useRef, useState } from "react";
@@ -16,7 +16,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 export default function Clues() {
   const insets = useSafeAreaInsets();
   const router = useRouter();
-  const clues = useCluesStore((state) => state.clues);
+  const clues = useClueStore((state) => state.clues);
   const [searchValue, setSearchValue] = useState("");
   const [activeCategoryId, setActiveCategoryId] = useState("1");
   const flatListRef = useRef<FlatList<Clue>>(null);
@@ -40,7 +40,7 @@ export default function Clues() {
   });
 
   const emptyText = (() => {
-    if (clues.length === 0) {
+    if (!clues.length) {
       return "You haven't created any clues yet.\nTap '+' to start!";
     }
     if (normalizedSearchValue) {
