@@ -78,7 +78,7 @@ export default function Onboarding() {
           pointerEvents="none"
         />
         <Button
-          text="Get started"
+          title="Get started"
           iconName="arrow-right"
           onPress={handleGetStartedPress}
         />

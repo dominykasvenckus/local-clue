@@ -118,7 +118,7 @@ export default function ClueEditor({ clueId }: ClueEditorScreenProps) {
           pointerEvents="none"
         />
         <Button
-          text="Save"
+          title="Save"
           iconName="check"
           onPress={handleSave}
           disabled={!formValues.title.trim() || !formValues.text.trim()}

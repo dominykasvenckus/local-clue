@@ -8,7 +8,7 @@ import PressableScale from "./PressableScale";
 import Typography from "./Typography";
 
 type ButtonProps = {
-  text: string;
+  title: string;
   iconName?: IconName;
   iconSide?: "left" | "right";
   disabled?: boolean;
@@ -17,7 +17,7 @@ type ButtonProps = {
 };
 
 export default function Button({
-  text,
+  title,
   iconName,
   iconSide = "right",
   disabled = false,
@@ -69,7 +69,7 @@ export default function Button({
             fontWeight="bold"
             textAlign="center"
           >
-            {text}
+            {title}
           </Typography>
           {iconSide === "right" ? icon : null}
         </View>
