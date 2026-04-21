@@ -1,4 +1,5 @@
 import { categories, colors } from "@/constants";
+import { useClueStore } from "@/storage/stores";
 import { Clue } from "@/types";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
@@ -13,11 +14,17 @@ export default function ClueCard({
   title,
   text,
   categoryId,
+  isFavorite,
 }: ClueCardProps) {
   const router = useRouter();
+  const updateClue = useClueStore((state) => state.updateClue);
   const category = categories.find((cat) => cat.id === categoryId);
 
-  const handleDotsPress = () => {
+  const handleFavoritePress = () => {
+    updateClue(id, { isFavorite: !isFavorite });
+  };
+
+  const handleMenuPress = () => {
     router.navigate({ pathname: "/clues/[id]/actions", params: { id } });
   };
 
@@ -31,7 +38,7 @@ export default function ClueCard({
             color={colors.primary}
           />
         </View>
-        <View style={styles.flexShrink}>
+        <View style={styles.titleContainer}>
           <Typography
             color={colors.onSurface}
             fontSize={16}
@@ -48,17 +55,28 @@ export default function ClueCard({
             {category?.title.toUpperCase()}
           </Typography>
         </View>
-        <PressableScale
-          style={styles.dotsContainer}
-          onPress={handleDotsPress}
-          hitSlop={20}
-        >
-          <MaterialCommunityIcons
-            name="dots-vertical"
-            size={24}
-            color={colors.onSurfaceSubtle}
-          />
-        </PressableScale>
+        <View style={styles.actionsContainer}>
+          <PressableScale
+            onPress={handleFavoritePress}
+            hitSlop={{ top: 20, bottom: 20, left: 20, right: 4 }}
+          >
+            <MaterialCommunityIcons
+              name={isFavorite ? "star" : "star-outline"}
+              size={24}
+              color={isFavorite ? colors.primaryAccent : colors.onSurfaceSubtle}
+            />
+          </PressableScale>
+          <PressableScale
+            onPress={handleMenuPress}
+            hitSlop={{ top: 20, bottom: 20, left: 4, right: 20 }}
+          >
+            <MaterialCommunityIcons
+              name="dots-vertical"
+              size={24}
+              color={colors.onSurfaceSubtle}
+            />
+          </PressableScale>
+        </View>
       </View>
       <View style={styles.textContainer}>
         <Typography color={colors.primarySoft} fontSize={15} lineHeight={22}>
@@ -70,9 +88,6 @@ export default function ClueCard({
 }
 
 const styles = StyleSheet.create({
-  flexShrink: {
-    flexShrink: 1,
-  },
   container: {
     padding: 20,
     backgroundColor: colors.surface,
@@ -89,8 +104,14 @@ const styles = StyleSheet.create({
     backgroundColor: colors.surfaceElevated,
     borderRadius: 12,
   },
-  dotsContainer: {
+  titleContainer: {
+    flexShrink: 1,
+    gap: 4,
+  },
+  actionsContainer: {
+    flexDirection: "row",
     marginLeft: "auto",
+    gap: 8,
   },
   textContainer: {
     padding: 12,

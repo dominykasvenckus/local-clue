@@ -18,14 +18,17 @@ export default function Clues() {
   const router = useRouter();
   const clues = useClueStore((state) => state.clues);
   const [searchValue, setSearchValue] = useState("");
-  const [activeCategoryId, setActiveCategoryId] = useState("1");
+  const [activeCategoryId, setActiveCategoryId] = useState("all");
   const flatListRef = useRef<FlatList<Clue>>(null);
 
   const normalizedSearchValue = searchValue.trim().toLowerCase();
 
   const filteredClues = clues.filter((item) => {
     const matchesCategory =
-      activeCategoryId === "1" ? true : item.categoryId === activeCategoryId;
+      activeCategoryId === "all" ||
+      (activeCategoryId === "favorites"
+        ? item.isFavorite
+        : item.categoryId === activeCategoryId);
 
     if (!matchesCategory) {
       return false;
@@ -46,7 +49,7 @@ export default function Clues() {
     if (normalizedSearchValue) {
       return "No matches found";
     }
-    if (activeCategoryId !== "1") {
+    if (activeCategoryId !== "all") {
       return "No clues here";
     }
     return "Nothing to show";

@@ -4,7 +4,7 @@ import { createStore } from "../storage";
 
 type ClueStore = {
   clues: Clue[];
-  addClue: (clue: Omit<Clue, "id">) => void;
+  addClue: (clue: Omit<Clue, "id" | "isFavorite">) => void;
   mergeClues: (cluesToMerge: Clue[]) => void;
   getClue: (id: string) => Clue | undefined;
   updateClue: (id: string, updatedClue: Partial<Omit<Clue, "id">>) => void;
@@ -16,7 +16,7 @@ const useClueStore = createStore<ClueStore>("clues", (set, get) => ({
   clues: [],
   addClue: (clue) =>
     set((state) => {
-      const newClue = { id: randomUUID(), ...clue };
+      const newClue = { ...clue, id: randomUUID(), isFavorite: false };
       return { clues: [...state.clues, newClue] };
     }),
   mergeClues: (cluesToMerge) =>

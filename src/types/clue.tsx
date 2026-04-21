@@ -3,4 +3,5 @@ export type Clue = {
   title: string;
   text: string;
   categoryId: string;
+  isFavorite: boolean;
 };

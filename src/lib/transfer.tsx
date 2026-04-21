@@ -29,7 +29,7 @@ const SHA256_HEX_REGEX = /^[0-9a-f]{64}$/i;
 
 const validCategoryIds = new Set(
   categories
-    .filter((category) => category.id !== "1")
+    .filter((category) => category.id !== "all" && category.id !== "favorites")
     .map((category) => category.id),
 );
 
@@ -73,7 +73,7 @@ const parseClue = (value: unknown): Clue | null => {
     return null;
   }
 
-  const { id, title, text, categoryId } = value;
+  const { id, title, text, categoryId, isFavorite } = value;
 
   if (
     typeof id !== "string" ||
@@ -83,12 +83,13 @@ const parseClue = (value: unknown): Clue | null => {
     typeof text !== "string" ||
     text.trim() === "" ||
     typeof categoryId !== "string" ||
-    !validCategoryIds.has(categoryId)
+    !validCategoryIds.has(categoryId) ||
+    typeof isFavorite !== "boolean"
   ) {
     return null;
   }
 
-  return { id, title, text, categoryId };
+  return { id, title, text, categoryId, isFavorite };
 };
 
 const hashPayload = async (value: string) => {

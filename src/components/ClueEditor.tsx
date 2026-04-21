@@ -29,7 +29,7 @@ export default function ClueEditor({ clueId }: ClueEditorScreenProps) {
   const [formValues, setFormValues] = useState({
     title: clue?.title || "",
     text: clue?.text || "",
-    categoryId: clue?.categoryId || "2",
+    categoryId: clue?.categoryId || "general",
   });
 
   const handleChange = (field: keyof typeof formValues, value: string) => {
@@ -85,7 +85,10 @@ export default function ClueEditor({ clueId }: ClueEditorScreenProps) {
             <Label>Category</Label>
             <View style={styles.chipsContainer}>
               {categories
-                .filter((category) => category.id !== "1")
+                .filter(
+                  (category) =>
+                    category.id !== "all" && category.id !== "favorites",
+                )
                 .map((category) => (
                   <Chip
                     key={category.id}

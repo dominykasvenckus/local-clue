@@ -16,7 +16,7 @@ export default function CustomHeader({
   const insets = useSafeAreaInsets();
   const title = getHeaderTitle(options, route.name);
 
-  const paddingHorizontal = (() => {
+  const basePaddingHorizontal = (() => {
     const leftPadding = insets.left + (back ? 88 : 24);
     const rightPadding = insets.right + 24;
     return Math.max(leftPadding, rightPadding);
@@ -25,7 +25,15 @@ export default function CustomHeader({
   return (
     <View>
       <View style={[styles.spacer, { height: insets.top }]}></View>
-      <View style={[styles.container, { paddingHorizontal }]}>
+      <View
+        style={[
+          styles.container,
+          {
+            paddingLeft: basePaddingHorizontal + insets.left,
+            paddingRight: basePaddingHorizontal + insets.right,
+          },
+        ]}
+      >
         {back && (
           <PressableScale
             style={[styles.iconContainer, { left: insets.left + 24 }]}
