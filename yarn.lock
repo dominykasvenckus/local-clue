@@ -2,7 +2,7 @@
 # Manual changes might be lost - proceed with caution!
 
 __metadata:
-  version: 8
+  version: 9
   cacheKey: 10c0
 
 "@babel/code-frame@npm:^7.12.13, @babel/code-frame@npm:^7.20.0, @babel/code-frame@npm:^7.28.6, @babel/code-frame@npm:^7.29.0":
@@ -6944,8 +6944,8 @@ __metadata:
     react-native-safe-area-context: "npm:~5.6.2"
     react-native-screens: "npm:~4.23.0"
     react-native-svg: "npm:15.15.3"
-    react-native-vision-camera: "npm:^5.0.1"
-    react-native-vision-camera-barcode-scanner: "npm:^5.0.1"
+    react-native-vision-camera: "npm:^5.0.2"
+    react-native-vision-camera-barcode-scanner: "npm:^5.0.2"
     react-native-web: "npm:^0.21.0"
     react-native-worklets: "npm:0.7.2"
     redux-devtools: "npm:^3.7.0"
@@ -8400,27 +8400,27 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-vision-camera-barcode-scanner@npm:^5.0.1":
-  version: 5.0.1
-  resolution: "react-native-vision-camera-barcode-scanner@npm:5.0.1"
+"react-native-vision-camera-barcode-scanner@npm:^5.0.2":
+  version: 5.0.2
+  resolution: "react-native-vision-camera-barcode-scanner@npm:5.0.2"
   peerDependencies:
     react: "*"
     react-native: "*"
     react-native-nitro-modules: "*"
     react-native-vision-camera: "*"
-  checksum: 10c0/8303d59aa2f0573e8ccab3176b4f876d10b25656e77c5625a7569bcf07da969058ff22f7be8220f71ef2bc540966e57a7bb6a0c8b25b54443d8561a7d9290d64
+  checksum: 10c0/ab3ae053a7895bd3afaf06bd7a2be829661a0ec68be5ba2121321f0e83e89526c2af3ad14e9468a5301d68daf0c566c33ca0d0c4730d355af8e4409a73d72a74
   languageName: node
   linkType: hard
 
-"react-native-vision-camera@npm:^5.0.1":
-  version: 5.0.1
-  resolution: "react-native-vision-camera@npm:5.0.1"
+"react-native-vision-camera@npm:^5.0.2":
+  version: 5.0.2
+  resolution: "react-native-vision-camera@npm:5.0.2"
   peerDependencies:
     react: "*"
     react-native: "*"
     react-native-nitro-image: "*"
     react-native-nitro-modules: "*"
-  checksum: 10c0/8c53234bf46d84fa5100ec69316a0f8a5eddc9a497c326917a392ed665be77c869e0cd68c1341f85fe1a7b2037239f42f619f2ef823d65f478c66c77a66cca1f
+  checksum: 10c0/42dcff418cc1d372e5a2a8ae8ddda20e698fd4807b2ed09848b96bfff7285a484b655420350a98cae4c1a185492d3aa04b69c2116144bde629b021bde1a0f258
   languageName: node
   linkType: hard
 

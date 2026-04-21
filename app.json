@@ -3,7 +3,7 @@
     "name": "Local Clue",
     "slug": "local-clue",
     "version": "1.0.0",
-    "orientation": "default",
+    "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "localclue",
     "userInterfaceStyle": "automatic",
@@ -66,6 +66,16 @@
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
+    },
+    "extra": {
+      "router": {},
+      "expo-navigation-bar": {
+        "enforceContrast": false,
+        "barStyle": "dark"
+      },
+      "eas": {
+        "projectId": "a93787cc-6805-4f8d-9cac-a2d4e794495c"
+      }
     }
   }
 }
