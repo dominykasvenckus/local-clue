@@ -54,7 +54,7 @@ export default function Onboarding() {
             textAlign="center"
             spacingBottom={48}
           >
-            Save, organize, and manage your password clues in one simple place.
+            Save, organize, and manage your password clues in one simple place
           </Typography>
           <View style={styles.cardsContainer}>
             {onboardingCards.map((card, index) => (
