@@ -23,24 +23,26 @@ export default function Clues() {
 
   const normalizedSearchValue = searchValue.trim().toLowerCase();
 
-  const filteredClues = clues.filter((item) => {
-    const matchesCategory =
-      activeCategoryId === "all" ||
-      (activeCategoryId === "favorites"
-        ? item.isFavorite
-        : item.categoryId === activeCategoryId);
+  const filteredClues = clues
+    .filter((item) => {
+      const matchesCategory =
+        activeCategoryId === "all" ||
+        (activeCategoryId === "favorites"
+          ? item.isFavorite
+          : item.categoryId === activeCategoryId);
 
-    if (!matchesCategory) {
-      return false;
-    }
+      if (!matchesCategory) {
+        return false;
+      }
 
-    if (!normalizedSearchValue) {
-      return true;
-    }
+      if (!normalizedSearchValue) {
+        return true;
+      }
 
-    const searchableText = `${item.title} ${item.text}`.toLowerCase();
-    return searchableText.includes(normalizedSearchValue);
-  });
+      const searchableText = `${item.title} ${item.text}`.toLowerCase();
+      return searchableText.includes(normalizedSearchValue);
+    })
+    .reverse();
 
   const emptyText = (() => {
     if (!clues.length) {
