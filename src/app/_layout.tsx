@@ -23,6 +23,10 @@ const theme = {
   },
 };
 
+export const unstable_settings = {
+  initialRouteName: "(tabs)",
+};
+
 export default function RootLayout() {
   const isOnboarded = useApplicationStore((state) => state.isOnboarded);
   const [isReady, setIsReady] = useState(false);
