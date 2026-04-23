@@ -21,6 +21,7 @@ export default function Clues() {
   const [activeCategoryId, setActiveCategoryId] = useState("all");
   const flatListRef = useRef<FlatList<Clue>>(null);
 
+  const isEmpty = clues.length === 0;
   const normalizedSearchValue = searchValue.trim().toLowerCase();
 
   const filteredClues = clues
@@ -45,7 +46,7 @@ export default function Clues() {
     .reverse();
 
   const emptyText = (() => {
-    if (!clues.length) {
+    if (isEmpty) {
       return "You haven't created any clues yet.\nTap '+' to start!";
     }
     if (normalizedSearchValue) {
@@ -59,7 +60,7 @@ export default function Clues() {
 
   useLayoutEffect(() => {
     flatListRef.current?.scrollToOffset({ offset: 0, animated: false });
-  }, [activeCategoryId]);
+  }, [activeCategoryId, isEmpty, normalizedSearchValue]);
 
   const handleAddPress = () => {
     router.navigate("/clues/add");
