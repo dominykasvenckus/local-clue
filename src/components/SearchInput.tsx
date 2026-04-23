@@ -55,7 +55,6 @@ export default function SearchInput({
         <PressableScale
           style={styles.rightIconContainer}
           onPress={handleClearPress}
-          hitSlop={6}
         >
           <MaterialCommunityIcons
             name="close-circle"
@@ -82,7 +81,7 @@ const styles = StyleSheet.create({
     fontFamily: "Manrope-Medium",
     fontSize: 16,
     paddingLeft: 46,
-    paddingRight: 50,
+    paddingRight: 54,
     paddingVertical: 14,
     backgroundColor: colors.surface,
   },
@@ -93,6 +92,11 @@ const styles = StyleSheet.create({
   },
   rightIconContainer: {
     position: "absolute",
-    right: 14,
+    top: 0,
+    bottom: 0,
+    right: 0,
+    justifyContent: "center",
+    paddingLeft: 10,
+    paddingRight: 14,
   },
 });
